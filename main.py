@@ -1,5 +1,5 @@
 import pygame
-from button import Button
+from ui.button import Button
 
 
 class App():
@@ -48,6 +48,8 @@ class App():
         print("Doing a clean exit...")
         self.running = False
         pygame.quit()
+        
+        #Testing changes
 
-
-App()
+if __name__ == "__main__":
+    App()

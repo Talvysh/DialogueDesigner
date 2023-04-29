@@ -26,3 +26,4 @@ class Button():
 
         if self.outline_size > 0:
             pygame.draw.rect(surface, self.outline_color, self.rect, self.outline_size)
+        
