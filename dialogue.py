@@ -3,3 +3,4 @@ class Dialogue():
         self.content = ""
         self.connect_to : Dialogue
         self.var = "asdasd"
+        self.test = 12330

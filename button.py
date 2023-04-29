@@ -28,6 +28,5 @@ class Button():
             pygame.draw.rect(surface, self.outline_color, self.rect, self.outline_size)
     
     def on_click(self):
-        self.rect.collidepoint(pygame.mouse.get_pos())
-        return True
+        return self.rect.collidepoint(pygame.mouse.get_pos())
         
