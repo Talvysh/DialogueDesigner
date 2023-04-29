@@ -1,5 +1,5 @@
 import pygame
-from button import Button
+from ui.button import Button
 
 
 class App():
@@ -51,5 +51,5 @@ class App():
         
         #Testing changes
 
-
-App()
+if __name__ == "__main__":
+    App()
