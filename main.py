@@ -17,13 +17,7 @@ class App():
 
     def render(self):
         while self.running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-                
-                elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_ESCAPE:
-                        self.running = False
+            self.input(self)
             
             self.window.fill([0,0,0])
 
@@ -36,7 +30,13 @@ class App():
 
     
     def input(self):
-        pass
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+                
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_ESCAPE:
+                        self.running = False
 
 
     def create_ui(self):
