@@ -3,8 +3,12 @@ from ui.button import Button
 
 
 class App():
+    instance = None
+
     def __init__(self) -> None:
         print("Starting up DD...")
+
+        App.instance = self
         pygame.init()
 
         self.window_size = [1280, 720]  # Save to a config later
@@ -17,7 +21,7 @@ class App():
 
     def render(self):
         while self.running:
-            self.input(self)
+            self.input()
             
             self.window.fill([0,0,0])
 

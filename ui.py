@@ -13,7 +13,7 @@ class Element():
         pass
 
 
-class Label(pygame.surface):
+class Label(Surface):
     """Draws text to the screen."""
 
     def __init__ (self, pos, text, font_size=20, font_color=[255,255,255]):
@@ -38,7 +38,7 @@ class Label(pygame.surface):
         self.draw_label()
 
 
-class Container(pygame.Surface):
+class Container(Surface):
     """Helps layout UI elements inside itself."""
 
     def __init__(self, pos, size, bg_color=(255, 255, 255)):
