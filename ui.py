@@ -1,4 +1,7 @@
-#more UI classes
+#UI elements
+
+#Need to add: creation of label, button, container, etc. Then add elements to the container, then add the container to the UI. Then render the UI.
+
 import pygame
 
 class Label(pygame.surface):
@@ -20,6 +23,27 @@ class Label(pygame.surface):
     def set_text(self, text):
         self.text = text
         self.draw_label()
-        
-pygame.init()
+
+    #Container class for UI elements:
+    class Container(pygame.Surface):
+    def __init__(self, pos, size, bg_color=(255, 255, 255)):
+        super().__init__(size)
+        self.pos = pos
+        self.bg_color = bg_color
+        self.rect = pygame.Rect(pos, size)
+        self.elements = []
+        self.draw_container()
+
+    def draw_container(self):
+        self.fill(self.bg_color)
+        for element in self.elements:
+            self.blit(element, element.pos)
+
+    def add_element(self, element):
+        self.elements.append(element)
+
+    def remove_element(self, element):
+        self.elements.remove(element)
+    
+    
         
