@@ -2,7 +2,7 @@ import pygame
 from pygame import Vector2, Surface
 
 
-class UI():
+class Element():
     """Parent class of all UI elements."""
     
     def __init__(self) -> None:
