@@ -1,5 +1,7 @@
 import pygame
 from ui.button import Button
+from gui import Container
+from pygame import Vector2
 
 
 class App():
@@ -28,6 +30,9 @@ class App():
             for b in Button.instances:
                 b.draw(self.window)
             
+            for el in Container.instances:
+                el.draw(self.window)
+
             pygame.display.flip()
         
         self.quit()
@@ -41,11 +46,15 @@ class App():
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
+                
+                for el in Container.instances:
+                    el.drag(event)
 
 
     def create_ui(self):
         button = Button(pygame.Vector2(200, 200), pygame.Vector2(150, 25))
         button.set_style([0, 200, 100], [255, 255, 255], 3)
+        container = Container(Vector2(0, 0), Vector2(150, 20))
 
 
     def quit(self):
