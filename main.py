@@ -1,10 +1,16 @@
 import pygame
 from ui.button import Button
+from gui import Container
+from pygame import Vector2
 
 
 class App():
+    instance = None
+
     def __init__(self) -> None:
         print("Starting up DD...")
+
+        App.instance = self
         pygame.init()
 
         self.window_size = [1280, 720]  # Save to a config later
@@ -17,13 +23,16 @@ class App():
 
     def render(self):
         while self.running:
-            self.input(self)
+            self.input()
             
             self.window.fill([0,0,0])
 
             for b in Button.instances:
                 b.draw(self.window)
             
+            for el in Container.instances:
+                el.draw(self.window)
+
             pygame.display.flip()
         
         self.quit()
@@ -37,11 +46,15 @@ class App():
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_ESCAPE:
                         self.running = False
+                
+                for el in Container.instances:
+                    el.drag(event)
 
 
     def create_ui(self):
         button = Button(pygame.Vector2(200, 200), pygame.Vector2(150, 25))
         button.set_style([0, 200, 100], [255, 255, 255], 3)
+        container = Container(Vector2(0, 0), Vector2(150, 20))
 
 
     def quit(self):

@@ -2,7 +2,7 @@ import pygame
 from pygame import Vector2, Surface
 
 
-class UI():
+class Element():
     """Parent class of all UI elements."""
     
     def __init__(self) -> None:
@@ -13,7 +13,7 @@ class UI():
         pass
 
 
-class Label(pygame.surface):
+class Label(Surface):
     """Draws text to the screen."""
 
     def __init__ (self, pos, text, font_size=20, font_color=[255,255,255]):
@@ -38,8 +38,10 @@ class Label(pygame.surface):
         self.draw_label()
 
 
-class Container(pygame.Surface):
+class Container(Surface):
     """Helps layout UI elements inside itself."""
+
+    instances = []
 
     def __init__(self, pos, size, bg_color=(255, 255, 255)):
         super().__init__(size)
@@ -47,12 +49,19 @@ class Container(pygame.Surface):
         self.bg_color = bg_color
         self.rect = pygame.Rect(pos, size)
         self.elements = []
-        self.draw()
+        
+        self.moving = False
+        self.mouse_offset = Vector2(0, 0)
 
-    def draw(self):
+        Container.instances.append(self)
+
+    def draw(self, surface : Surface):
         self.fill(self.bg_color)
+
         for element in self.elements:
             self.blit(element, element.pos)
+
+        surface.blit(self, self.rect.topleft)
 
 
     def add_element(self, element):
@@ -63,4 +72,17 @@ class Container(pygame.Surface):
         self.elements.remove(element)
     
     
-        
+    def drag(self, event : pygame.event.Event):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # Check if the mouse is clicked inside the container
+            if self.rect.collidepoint(event.pos):
+                self.moving = True
+                self.mouse_offset.x = event.pos[0] - self.rect.x
+                self.mouse_offset.y = event.pos[1] - self.rect.y
+        elif event.type == pygame.MOUSEBUTTONUP:
+            self.moving = False
+        elif event.type == pygame.MOUSEMOTION:
+            if self.moving:
+                # move the container with the mouse
+                self.rect.x = event.pos[0] - self.mouse_offset.x
+                self.rect.y = event.pos[1] - self.mouse_offset.y
